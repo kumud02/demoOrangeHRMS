@@ -1,0 +1,26 @@
+{
+  "booksData" : {
+    "tabText": {
+      "np": "गृह पृष्ठ",
+      "en": "HOME"
+    },
+    "heading": {
+      "en": "",
+      "np": ""
+    },
+    "blockText": {
+      "np": "",
+      "en": ""
+    },
+    "explorePlatformButtonText": {
+    },
+    "exploreByGradeHeadingText": {
+    },
+    "gradeList": {
+    },
+    "exploreByCategoryHeadingText": {
+    },
+    "categoryList": {
+    }
+  }
+}

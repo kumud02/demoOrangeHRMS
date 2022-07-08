@@ -1,0 +1,47 @@
+{
+  "grade": {
+    "np": "",
+    "en": "Grade 1"
+  },
+  "language": {
+    "np": "",
+    "en": "English"
+  },
+  "categories" : {
+
+  },
+  "publisher": {
+    "np": "",
+    "en": "Parichaya"
+  },
+  "bookDetails" : {
+    "name": {
+      "np": "",
+      "en": "Kasle Banayo Chitra"
+    },
+    "author": {
+      "np": "",
+      "en": "Krishnadip Sigdel"
+    },
+    "language": {
+      "np": "",
+      "en": "Nepali"
+    },
+    "publisher": {
+      "np": "",
+      "en": "Parichaya"
+    },
+    "price": {
+      "np": "",
+      "en": "Rs 120.00"
+    },
+    "grade": {
+      "np": "",
+      "en": "Grade 1"
+    },
+    "category": {
+      "np": "",
+      "en": "Pictorial Story"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="REGRESSION">
+	<test name="UI DATA VALIDATION">
+		<classes>
+			<class name="com.carrier.lynxfleet.qa.dv.tests.LoginTest"/>
+
+		</classes>
+	</test>
+</suite> 

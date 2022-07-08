@@ -1,0 +1,12 @@
+{
+  "validCredentials" :
+    {
+      "email": "kumud.kharel@togglecorp.com",
+      "password": "Hawking@98"
+    },
+  "invalidCredentials": {
+    "email": "kumud.kharel@togglecorp.com",
+    "password": "Hawking@9888"
+  }
+
+}
