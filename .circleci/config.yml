@@ -50,7 +50,7 @@ build:
     - store_artifacts:
         path: /tmp/artifacts
 
-escription: >-
+description: 
   Orb providing support for [Allure
   Framework](https://github.com/allure-framework/allure2)
 commands:
