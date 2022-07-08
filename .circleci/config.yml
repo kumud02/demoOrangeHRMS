@@ -3,7 +3,9 @@ jobs:
  build:
     docker:
       - image: cimg/openjdk:18.0.1
-    
+    steps:
+      - checkout
+      - run: java --version
 
     environment:
       # Customize the JVM maximum heap limit
