@@ -12,11 +12,11 @@ jobs:
       MAVEN_OPTS: -Xmx3200m
 
     description: Installs Allure Framework and registers it as /usr/local/bin/allure
-parameters:
-  version:
-    description: Allure version to use
-    type: string
-    default: 2.13.1
+    parameters:
+    version:
+      description: Allure version to use
+      type: string
+      default: 2.13.1
 steps:
   - run:
       name: Allure archive download
