@@ -1,10 +1,11 @@
 version: 2
 jobs:
-  build:
+ build:
     docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:15-jdk-node
-#      - image: appium/appium-emulator
+      - image: cimg/openjdk:18.0.1
+    # steps:
+    #   - checkout
+    #   - run: java --version
 
 
     environment:
