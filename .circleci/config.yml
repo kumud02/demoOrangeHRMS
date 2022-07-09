@@ -46,6 +46,18 @@ build:
           echo "my artifact file" > /tmp/art-1;
           mkdir /tmp/artifacts;
           echo "my artifact files in a dir" > /tmp/artifacts/art-2;
+    - run:
+        name: Allure archive download
+        command: curl -L https://github.com/allure-framework/allure2/releases/download/<< parameters.version >>/allure-commandline-<< parameters.version >>.zip -o /tmp/allure.zip
+    - run:
+        name: Archive extraction
+        command: unzip /tmp/allure.zip
+    - run:
+        name: Allure installation
+        command: sudo mv allure-<< parameters.version >> /usr/local/share/allure
+    - run:
+        name: Allure binary symlinking
+        command: sudo ln -s /usr/local/share/allure/bin/allure /usr/local/bin/allure
 
     - store_artifacts:
         path: /tmp/art-1
