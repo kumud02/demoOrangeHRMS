@@ -58,7 +58,6 @@ jobs: # a collection of steps
        MAVEN_OPTS: -Xmx3200m   # Customize the JVM maximum heap limit
     
     
-    
     steps: # a collection of executable commands
  
       - checkout: # check out source code to working directory
@@ -79,13 +78,11 @@ jobs: # a collection of steps
  
       - run: mvn clean test # run the actual tests
 
-      - store_test_results:
-          path: test-results
   
       - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
           path: target/surefire-reports
 
-      - run: 'curl -H "Content-Type: multipart/form-data" -u $jira_user:$jira_password -F "file=@target/surefire-reports/TEST-com.xpand.java.CalcTest.xml" "$jira_server_url/rest/raven/1.0/import/execution/testng?projectKey=TPSF"'
+      - run: 'curl -H "Content-Type: multipart/form-data" -u $jira_user:$jira_password -F "file=@target/surefire-reports/testng-results.xml" "$jira_server_url/rest/raven/1.0/import/execution/testng?projectKey=TPSF"'
 
       - run:
           name: Creating Dummy Artifacts
