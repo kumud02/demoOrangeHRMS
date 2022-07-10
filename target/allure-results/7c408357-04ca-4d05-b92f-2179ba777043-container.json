@@ -1,0 +1,1 @@
+{"uuid":"7c408357-04ca-4d05-b92f-2179ba777043","name":"REGRESSION","children":["e93dabfc-23b3-47af-a8dd-857e70b10daa"],"befores":[{"name":"suiteSetUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1657477391734,"stop":1657477391752}],"afters":[],"start":1657477391699,"stop":1657477477146}
