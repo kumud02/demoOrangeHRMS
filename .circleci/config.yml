@@ -84,6 +84,8 @@ jobs: # a collection of steps
 
       - run: 'curl -H "Content-Type: multipart/form-data" -u $jira_user:$jira_password -F "file=@target/surefire-reports/testng-results.xml" "$jira_server_url/rest/raven/1.0/import/execution/testng?projectKey=TPSF"'
 
+      - run: 'curl -H "Content-Type: multipart/form-data" -u admin:admin -F "file=@report.xml" https://testamplify.atlassian.net/rest/raven/1.0/import/execution/testng?projectKey=TPSF'
+
       - run:
           name: Creating Dummy Artifacts
           command: |
