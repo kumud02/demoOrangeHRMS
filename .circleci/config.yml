@@ -1,70 +1,107 @@
-version: 2.1
-orbs:
-  browser-tools: circleci/browser-tools@1.1
-  allure: ayte/allure@0.1.3
+# version: 2.1
+# orbs:
+#   browser-tools: circleci/browser-tools@1.1
+#   allure: ayte/allure@0.1.3
 
-jobs:
- build:
-    docker:
-      - image: cimg/openjdk:18.0.1
-      - image: cimg/openjdk:1.14-browsers
-    environment:
-      # Customize the JVM maximum heap limit
-      MAVEN_OPTS: -Xmx3200m
+# jobs:
+#  build:
+#     docker:
+#       - image: cimg/openjdk:18.0.1
+#       - image: cimg/openjdk:1.14-browsers
+#     environment:
+#       # Customize the JVM maximum heap limit
+#       MAVEN_OPTS: -Xmx3200m
      
-    steps:
-      - checkout
-      - browser-tools/install-browser-tools
-      - run: |
-          java --version
-          google-chrome --version
+#     steps:
+#       - checkout
+#       - browser-tools/install-browser-tools
+#       - run: |
+#           java --version
+#           google-chrome --version
      
       
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: mvn dependency:go-offline
+#       # Download and cache dependencies
+#       - restore_cache:
+#           keys:
+#             - v1-dependencies-{{ checksum "pom.xml" }}
+#             # fallback to using the latest cache if no exact match is found
+#             - v1-dependencies-
+#       - run: mvn dependency:go-offline
 
-      - save_cache:
+#       - save_cache:
+#           paths:
+#             - ~/.m2
+#           key: v1-dependencies-{{ checksum "pom.xml" }}
+
+
+#         # run tests!
+#       - run: mvn clean test
+#       # - run: mvn test
+    
+version: 2 # use CircleCI 2.0
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
+ 
+    working_directory: ~/demo/java-junit-calc # directory where steps will run
+ 
+    docker: # run the steps with Docker
+      - image: circleci/openjdk:8-jdk-browsers # ...with this image as the primary container; this is where all `steps` will run
+ 
+    steps: # a collection of executable commands
+ 
+      - checkout: # check out source code to working directory
+          path: ~/demo
+ 
+      - restore_cache: # restore the saved cache after the first run or if `pom.xml` has changed
+          key: circleci-java-junit-calc-demo # circleci-java-junit-calc-demo-{{ checksum "pom.xml" }}
+ 
+      - run: mvn dependency:go-offline # gets the project dependencies
+ 
+      - run: mvn test # run the actual tests
+ 
+      - save_cache: # saves the project dependencies
           paths:
             - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
+          key: circleci-java-junit-calc-demo # circleci-java-junit-calc-demo-{{ checksum "pom.xml" }}
+ 
+      - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
+          path: target/surefire-reports
+ 
+      - run:
+          name: Get API token
+          command: |
+            echo export token=$(curl -H "Content-Type: application/json" -X POST --data "{ \"client_id\": \"$client_id\",\"client_secret\": \"$client_secret\" }" https://xray.cloud.xpand-it.com/api/v1/authenticate| tr -d '"') >> $BASH_ENV
+            source $BASH_ENV
+ 
+      - run: 'curl -H "Content-Type: text/xml" -H "Authorization: Bearer $token" --data @target/surefire-reports/TEST-com.xpand.java.CalcTest.xml  "https://xray.cloud.xpand-it.com/api/v1/import/execution/junit?projectKey=SP"'
 
 
-        # run tests!
-      - run: mvn clean test
-      # - run: mvn test
-    
-    
 
-build:
-  working_directory: /tmp
-  steps:
-    - run:
-        name: Creating Dummy Artifacts
-        command: |
-          echo "my artifact file" > /tmp/art-1;
-          mkdir /tmp/artifacts;
-          echo "my artifact files in a dir" > /tmp/artifacts/art-2;
-    - run:
-        name: Allure archive download
-        command: curl -L https://github.com/allure-framework/allure2/releases/download/<< parameters.version >>/allure-commandline-<< parameters.version >>.zip -o /tmp/allure.zip
-    - run:
-        name: Archive extraction
-        command: unzip /tmp/allure.zip
-    - run:
-        name: Allure installation
-        command: sudo mv allure-<< parameters.version >> /usr/local/share/allure
-    - run:
-        name: Allure binary symlinking
-        command: sudo ln -s /usr/local/share/allure/bin/allure /usr/local/bin/allure
+# build:
+#   working_directory: /tmp
+#   steps:
+#     - run:
+#         name: Creating Dummy Artifacts
+#         command: |
+#           echo "my artifact file" > /tmp/art-1;
+#           mkdir /tmp/artifacts;
+#           echo "my artifact files in a dir" > /tmp/artifacts/art-2;
+#     - run:
+#         name: Allure archive download
+#         command: curl -L https://github.com/allure-framework/allure2/releases/download/<< parameters.version >>/allure-commandline-<< parameters.version >>.zip -o /tmp/allure.zip
+#     - run:
+#         name: Archive extraction
+#         command: unzip /tmp/allure.zip
+#     - run:
+#         name: Allure installation
+#         command: sudo mv allure-<< parameters.version >> /usr/local/share/allure
+#     - run:
+#         name: Allure binary symlinking
+#         command: sudo ln -s /usr/local/share/allure/bin/allure /usr/local/bin/allure
 
-    - store_artifacts:
-        path: /tmp/art-1
-        destination: artifact-file
+#     - store_artifacts:
+#         path: /tmp/art-1
+#         destination: artifact-file
 
-    - store_artifacts:
-        path: /tmp/artifacts
+#     - store_artifacts:
+#         path: /tmp/artifacts
