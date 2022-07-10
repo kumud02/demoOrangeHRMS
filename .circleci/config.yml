@@ -84,15 +84,15 @@ jobs: # a collection of steps
 
       # - run: 'curl -H "Content-Type: multipart/form-data" -H "Authorization: Bearer kM2gZjljxKSGLSP8Xd4N174A" -F "file=@target/surefire-reports/testng-results.xml" "https://testamplify.atlassian.net/rest/raven/1.0/import/execution/testng?projectKey=TPSF"'
 
-      - run: 'curl -H "Content-Type: multipart/form-data" -H "Authorization: Bearer kM2gZjljxKSGLSP8Xd4N174A" -F "file=@report.xml" https://testamplify.atlassian.net/rest/raven/1.0/import/execution/testng?projectKey=TPSF'
+      # - run: 'curl -H "Content-Type: multipart/form-data" -H "Authorization: Bearer kM2gZjljxKSGLSP8Xd4N174A" -F "file=@report.xml" https://testamplify.atlassian.net/rest/raven/1.0/import/execution/testng?projectKey=TPSF'
 
       - run:
           name: Creating Dummy Artifacts
           command: |
             pwd
             echo "my artifact file" > /project/art-1;
-            mkdir /project/artifacts;
-            echo "my artifact files in a dir" > /project/artifacts/art-2;
+            mkdir artifacts;
+            echo "my artifact files in a dir" > artifacts/art-2;
 
     
       - run:
