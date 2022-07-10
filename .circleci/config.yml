@@ -99,9 +99,7 @@ jobs: # a collection of steps
       - run:
           name: Allure archive download
           command: >-
-            curl -L https://github.com/allure-framework/allure2/releases/download/<<
-            parameters.version >>/allure-commandline-<< parameters.version >>.zip -o
-            /project/allure.zip
+            curl -L https://github.com/allure-framework/allure2/releases/download/<<parameters.version>>/allure-commandline-<< parameters.version >>.zip -o/project/allure.zip
       - run:
           name: Archive extraction
           command: unzip /project/allure.zip
