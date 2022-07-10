@@ -90,7 +90,8 @@ jobs: # a collection of steps
           name: Creating Dummy Artifacts
           command: |
             pwd
-            echo "my artifact file" > /project/art-1;
+            sudo su
+            echo "my artifact file" > art-1;
             sudo mkdir artifacts;
             echo "my artifact files in a dir" > artifacts/art-2;
 
