@@ -34,10 +34,10 @@ commands:
     steps:
       - run:
           name: Allure archive download
-          command: curl -L https://github.com/allure-framework/allure2/releases/download/<< parameters.version >>/allure-commandline-<< parameters.version >>.zip -o /tmp/allure.zip
+          command: curl -L https://github.com/allure-framework/allure2/releases/download/<< parameters.version >>/allure-commandline-<< parameters.version >>.zip -o /project/allure.zip
       - run:
           name: Archive extraction
-          command: unzip /tmp/allure.zip
+          command: unzip /project/allure.zip
       - run:
           name: Allure installation
           command: sudo mv allure-<< parameters.version >> /usr/local/share/allure
@@ -87,9 +87,9 @@ jobs: # a collection of steps
       - run:
           name: Creating Dummy Artifacts
           command: |
-            echo "my artifact file" > /tmp/art-1;
-            mkdir /tmp/artifacts;
-            echo "my artifact files in a dir" > /tmp/artifacts/art-2;
+            echo "my artifact file" > /project/art-1;
+            mkdir /project/artifacts;
+            echo "my artifact files in a dir" > /project/artifacts/art-2;
 
     
       - run:
@@ -97,10 +97,10 @@ jobs: # a collection of steps
           command: >-
             curl -L https://github.com/allure-framework/allure2/releases/download/<<
             parameters.version >>/allure-commandline-<< parameters.version >>.zip -o
-            /tmp/allure.zip
+            /project/allure.zip
       - run:
           name: Archive extraction
-          command: unzip /tmp/allure.zip
+          command: unzip /project/allure.zip
       - run:
           name: Allure installation
           command: sudo mv allure-<< parameters.version >> /usr/local/share/allure
