@@ -86,13 +86,8 @@ jobs: # a collection of steps
 
       # - run: 'curl -H "Content-Type: multipart/form-data" -H "Authorization: Bearer kM2gZjljxKSGLSP8Xd4N174A" -F "file=@report.xml" https://testamplify.atlassian.net/rest/raven/1.0/import/execution/testng?projectKey=TPSF'
 
-      - run:
-          name: Creating Dummy Artifacts
-          command: |
-            pwd
-            sudo echo "my artifact file" > art-1;
-            sudo mkdir artifacts;
-            sudo echo "my artifact files in a dir" > artifacts/art-2;
+      - store_artifacts:
+          path: target/index.html
 
     
       - run:
