@@ -42,7 +42,7 @@ version: 2 # use CircleCI 2.0
 jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
  
-    working_directory: ~/demoOrangeHRMS # directory where steps will run
+    # working_directory: ~/demoOrangeHRMS # directory where steps will run
  
     docker: # run the steps with Docker
       - image: cimg/openjdk:18.0.1
@@ -54,7 +54,7 @@ jobs: # a collection of steps
     steps: # a collection of executable commands
  
       - checkout: # check out source code to working directory
-          path: ~/demo
+          # path: ~/demo
  
       - restore_cache:
           keys:
