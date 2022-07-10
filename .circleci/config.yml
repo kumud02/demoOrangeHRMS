@@ -91,7 +91,7 @@ jobs: # a collection of steps
           command: |
             pwd
             echo "my artifact file" > /project/art-1;
-            mkdir artifacts;
+            sudo mkdir artifacts;
             echo "my artifact files in a dir" > artifacts/art-2;
 
     
