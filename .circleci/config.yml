@@ -42,27 +42,40 @@ version: 2 # use CircleCI 2.0
 jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
  
-    working_directory: ~/demo/java-junit-calc # directory where steps will run
+    working_directory: ~/demoOrangeHRMS # directory where steps will run
  
     docker: # run the steps with Docker
+      - image: cimg/openjdk:18.0.1
       - image: circleci/openjdk:8-jdk-browsers # ...with this image as the primary container; this is where all `steps` will run
- 
+
+    environment:       
+       MAVEN_OPTS: -Xmx3200m   # Customize the JVM maximum heap limit
+    
     steps: # a collection of executable commands
  
       - checkout: # check out source code to working directory
           path: ~/demo
  
-      - restore_cache: # restore the saved cache after the first run or if `pom.xml` has changed
-          key: circleci-java-junit-calc-demo # circleci-java-junit-calc-demo-{{ checksum "pom.xml" }}
- 
-      - run: mvn dependency:go-offline # gets the project dependencies
- 
-      - run: mvn test # run the actual tests
- 
-      - save_cache: # saves the project dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run: mvn dependency:go-offline
+
+      - save_cache:
           paths:
             - ~/.m2
-          key: circleci-java-junit-calc-demo # circleci-java-junit-calc-demo-{{ checksum "pom.xml" }}
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      # - run: mvn dependency:go-offline # gets the project dependencies
+ 
+      # - run: mvn test # run the actual tests
+ 
+      # - save_cache: # saves the project dependencies
+      #     paths:
+      #       - ~/.m2
+      #     key: circleci-java-junit-calc-demo # circleci-java-junit-calc-demo-{{ checksum "pom.xml" }}
  
       - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
           path: target/surefire-reports
