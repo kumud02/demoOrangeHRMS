@@ -78,7 +78,10 @@ jobs: # a collection of steps
             echo export token=$(curl -H "Content-Type: application/json" -X POST --data "{ \"client_id\": \"$client_id\",\"client_secret\": \"$client_secret\" }" https://xray.cloud.xpand-it.com/api/v1/authenticate| tr -d '"') >> $BASH_ENV
             source $BASH_ENV
  
-      - run: 'curl -H "Content-Type: text/xml" -H "Authorization: Bearer $token" --data @target/surefire-reports/TEST-com.xpand.java.CalcTest.xml  "https://xray.cloud.xpand-it.com/api/v1/import/execution/junit?projectKey=SP"'
+      # - run: 'curl -H "Content-Type: text/xml" -H "Authorization: Bearer $token" --data @target/surefire-reports/TEST-com.xpand.java.CalcTest.xml  "https://xray.cloud.xpand-it.com/api/v1/import/execution/junit?projectKey=SP"'
+
+      - run: 'curl -H "Content-Type: multipart/form-data" -u $jira_user:$jira_password -F "file=@target/surefire-reports/TEST-com.xpand.java.CalcTest.xml" "$jira_server_url/rest/raven/1.0/import/execution/junit?projectKey=TPSF"'
+
 
 
 
