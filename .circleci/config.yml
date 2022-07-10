@@ -82,7 +82,7 @@ jobs: # a collection of steps
       - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
           path: target/surefire-reports
 
-      - run: 'curl -H "Content-Type: multipart/form-data" -H "Authorization: Bearer MDkzNjIyMTEwNjQzOqb+ApTGm3af+z3eGdcyDm7xHv6R" -F "file=@target/surefire-reports/testng-results.xml" "$jira_server_url/rest/raven/1.0/import/execution/testng?projectKey=TPSF"'
+      - run: 'curl -H "Content-Type: multipart/form-data" -H "Authorization: Bearer kM2gZjljxKSGLSP8Xd4N174A" -F "file=@target/surefire-reports/testng-results.xml" "$jira_server_url/rest/raven/1.0/import/execution/testng?projectKey=TPSF"'
 
       # - run: 'curl -H "Content-Type: multipart/form-data" -u admin:admin -F "file=@report.xml" https://testamplify.atlassian.net/rest/raven/1.0/import/execution/testng?projectKey=TPSF'
 
